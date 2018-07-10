@@ -1,2 +1,2 @@
 # rush00_cpp
-![space](https://user-images.githubusercontent.com/31519926/42524559-8e27e7c0-8479-11e8-959a-f86b78702ef7.gif)
+![space_v1](https://user-images.githubusercontent.com/31519926/42524767-19c81462-847a-11e8-8636-c23f8c8684f8.gif)
