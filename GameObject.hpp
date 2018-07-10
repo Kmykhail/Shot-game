@@ -10,36 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "LinkedList.hpp"
+#ifndef GAMEOBJECT_HPP
+#define GAMEOBJECT_HPP
 #include "AShips.hpp"
 #include "PlayerShip.hpp"
 #include "EnemyShip.hpp"
 #include "Bullet.hpp"
-#include "ncurses.h"
+#include "Spaces.hpp"
 #include <unistd.h>
-#include <sys/time.h>
+#include <math.h>
+#include <time.h>
 
-#define HEIGHT 20
+#define HEIGHT 50
 #define WIDTH  100
 
 class  GameObject{
 
 private:
-    ABang*      _bull;
-    AShips*      _pl;
-    AShips*      _enm;
+    Bullet        _bull[500];//bu;;ets
+    PlayerShip    _pl;//player
+    EnemyShip     _enm[50];//enemy
+    Spaces        _spc[100];
     WINDOW*         _win;
-    const int       _height;
-    const int       _width;
-    struct timeval  _time_start;
+    int             _score;
+    int             _y_map;
+    int             _x_map;
+    int             _cnt;
+    int             _total_cnt_cycle;
+    bool            _drop;
+    time_t      _start_t, _end_t;
 
 public:
     GameObject();
     ~GameObject();
-
     int     init_game();
     void    createWindow();
+    int     initPlayer();
     int     start_game();
-    void    mamoreEnemy();
+    void    init_spaces();
+    void    moveSpace();
+    void    createEnemy();
+    void    moveEnemy();
+    void    makeShot();
+    void    moveShot();
+    void    Colision();
+    void    enemyAtack();
+    GameObject(GameObject const & cpy);
+    GameObject &operator = (GameObject const & rhs);
 };
+
+#endif

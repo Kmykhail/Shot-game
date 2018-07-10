@@ -14,7 +14,15 @@
 
 AShips::AShips() { _myBang = nullptr; }
 
-AShips::~AShips() {}
+AShips::~AShips() {
+}
+
+AShips::AShips(int cL, int nL, char s) {
+    _curLive = cL;
+    _numLive = nL;
+    _symb = s;
+    _sum_b = 0;
+}
 
 AShips::AShips(AShips const &cpy) { *this = cpy; }
 
@@ -33,15 +41,22 @@ void AShips::setEndY_EndX(int endY, int endX) {
 }
 
 void AShips::setCoorX(int x) {
-    if (x < _endX)
-        _x = x;
+    _x = x;
 }
+
+void AShips::setCoorX_2(int x) { _x_2 = x; }
+
+void AShips::setCoorX_3(int x) { _x_3 = x; }
 
 void AShips::setCoorY(int y) {
-    if (y < _endY)
-        _y = y;
+    _y = y;
 }
 
+
+int AShips::getCoorX_2() const { return this->_x_2; }
+int AShips::getCoorX_3() const { return this->_x_3; }
+int AShips::getSub_b() const { return this->_sum_b; }
+int AShips::getType() const { return  this->_type; }
 int AShips::getCurLive() const { return this->_curLive; }
 char AShips::getSymbolObj() const { return this->_symb; }
 int AShips::getNumLive() const { return this->_numLive; }

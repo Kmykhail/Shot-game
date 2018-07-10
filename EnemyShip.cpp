@@ -12,12 +12,8 @@
 
 #include "EnemyShip.hpp"
 
-EnemyShip::EnemyShip() {
-    this->setCurLive(10);
-    this->setNumLive(1);
-    this->setSymb('^');
-    this->setCoorX(80);//ЗНАЧЕНИЕ С ВОЗДУХА
-    this->setCoorY(50);//ЗНАЧЕНИЕ С ВОЗДУХА
+EnemyShip::EnemyShip() : AShips(10, 1, '^') {
+    setCoorY(0);
 }
 
 EnemyShip::~EnemyShip() {}
@@ -35,11 +31,21 @@ EnemyShip& EnemyShip::operator=(EnemyShip const &rhs) {
     return *this;
 }
 
-ABang* EnemyShip::shot() {
-    ABang* bang = new Bullet;
+Bullet EnemyShip::shot(int sh) {
+    Bullet bang;
+    if ((this->getCoorY() + 2) < sh - 2 ){
+        bang.setY(this->getCoorY() + 2);
+        bang.setX(this->getCoorX());
+        bang.setType("enemy");
+        bang.setSymb('!');
+        _sum_b++;
+    }
+    else
+        bang.setSymb(' ');
     return bang;
 }
 
+void EnemyShip::setType(int type) { _type = type; }
 void EnemyShip::setCurLive(int live) { _curLive = live; }
 void EnemyShip::setNumLive(int numlive) { _numLive = numlive; }
 void EnemyShip::setSymb(char sym) { _symb = sym; }

@@ -14,7 +14,7 @@
 #define ABang_HPP
 #include "IFlyObj.hpp"
 
-class ABang : IFlyObj{
+class ABang : public IFlyObj{
 protected:
     int _hit;
     int _x;

@@ -13,13 +13,8 @@
 #include "PlayerShip.hpp"
 
 
-PlayerShip::PlayerShip() {
+PlayerShip::PlayerShip() : AShips(30, 3, 'W'){
     _game_over = false;
-    this->setCurLive(30);
-    this->setNumLive(3);
-    this->setSymb('W');
-    this->setCoorY(10);//ЗНАЧЕНИЕ С ВОЗДУХА
-    this->setCoorX(50);//ЗНАЧЕНИЕ С ВОЗДУХА
 }
 
 PlayerShip::~PlayerShip() {}
@@ -37,11 +32,27 @@ PlayerShip& PlayerShip::operator=(PlayerShip const &rhs) {
     return *this;
 }
 
-ABang* PlayerShip::shot() {
-    ABang* bang = new Bullet;
+Bullet PlayerShip::shot() {
+    Bullet bang;
+    if ((this->getCoorY() - 1) > 2){
+        bang.setY(this->getCoorY() - 1);
+        bang.setX(this->getCoorX());
+        bang.setType("player");
+        bang.setSymb('|');
+        _sum_b++;
+    }
+    else
+        bang.setSymb(' ');
     return bang;
 }
 
+void PlayerShip::setSum_b(int s) {
+    _sum_b -= s;
+    if (_sum_b < 0)
+        _sum_b = 0;
+}
+
+void PlayerShip::setType(int type) { _type = type; } // 0
 void PlayerShip::setCurLive(int live) { _curLive = live; }
 void PlayerShip::setNumLive(int numlive) { _numLive = numlive; }
 void PlayerShip::setSymb(char sym) { _symb = sym; }
@@ -55,9 +66,15 @@ void PlayerShip::setBang(ABang const &rhs) {
 
 bool PlayerShip::getStatusGame() const { return this->_game_over; }
 
+void PlayerShip::takeColison() {
+    _numLive -= 1;
+    if (_numLive <= 0)
+        _game_over = true;
+}
+
 void PlayerShip::takeDamage(ABang const &rhs) {
-    _curLive -= rhs.getHit();
-    _numLive -= (_curLive <= 0) ? 1 : 0;
+    (void)rhs;
+    _numLive -= 1;
     if (_numLive <= 0)
         _game_over = true;
 }

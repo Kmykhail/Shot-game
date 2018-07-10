@@ -17,6 +17,7 @@
 class Bullet : public ABang{
 
 public:
+    int real;
     Bullet();
     ~Bullet();
     Bullet(Bullet const & cpy);
